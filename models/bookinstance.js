@@ -1,5 +1,6 @@
 var moment = require('moment');
 var mongoose = require('mongoose');
+var dates = require('../shared/dates');
 
 var Schema = mongoose.Schema;
 
@@ -23,7 +24,7 @@ BookInstanceSchema
 BookInstanceSchema
 .virtual('due_back_formatted')
 .get(function () {
-    return moment(this.due_back).format('MMMM Do, YYYY');
+    return dates.stringDate(this.due_back);
 })
 
 //Export model

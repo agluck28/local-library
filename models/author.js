@@ -1,5 +1,6 @@
 var moment = require('moment');
 var mongoose = require('mongoose');
+var dates = require('../shared/dates');
 
 var Schema = mongoose.Schema;
 
@@ -23,17 +24,17 @@ AuthorSchema
 AuthorSchema
 .virtual('lifespan')
 .get(function() {
-    return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
+    return (dates.stringDate(this.date_of_birth) + ' - ' + dates.stringDate(this.date_of_death));
 });
 
 //Virtual for author's URL
 AuthorSchema
 .virtual('url')
 .get(function() {
-    return '/catalog/author' + this._id;
+    return '/catalog/author/' + this._id;
 });
 
-//Virtual for clean birth data
+//Virtual for clean birth date
 AuthorSchema
 .virtual('clean_bd')
 .get(function() {
